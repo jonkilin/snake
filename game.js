@@ -22,7 +22,7 @@ const emoji = {
 
 // 游戏状态
 let gameState = {
-  福气: 0,
+  score: 0,
   level: 1,
   lives: config.maxLives,
   isPaused: false,
@@ -255,7 +255,7 @@ function showGameOverScreen() {
   overlay.innerHTML = `
     <div class="content">
       <h2>游戏结束</h2>
-      <p>最终福气: ${gameState.福气}</p>
+      <p>最终得分: ${gameState.score}</p>
       <button onclick="restartGame()">重新开始</button>
     </div>
   `;
@@ -284,18 +284,18 @@ function restartGame() {
 
 // 处理食物碰撞
 function handleFoodCollision() {
-  gameState.福气 += 10;
+  gameState.score += 10;
   spawnFood();
   
-  // 每100福气升一级
-  if (gameState.福气 % 100 === 0) {
+  // 每100分升一级
+  if (gameState.score % 100 === 0) {
     gameState.level++;
   }
 }
 
 // 更新UI
 function updateUI() {
-  document.getElementById('score').textContent = gameState.福气;
+  document.getElementById('score').textContent = gameState.score;
   document.getElementById('level').textContent = gameState.level;
   document.getElementById('lives').textContent = gameState.lives;
 }
