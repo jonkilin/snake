@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="keywords" content="福蛇迎春, 贪吃蛇小游戏, 福蛇游戏, 春节主题游戏, 在线小游戏, 吃豆蛇, 休闲益智游戏, 春节贪吃蛇, Snake Game, 新年小游戏, jiaoziAI, 年俗小游戏, 贺岁游戏, 免费在线小游戏">
+    <meta name="description" content="福蛇迎春是一款由 jiaoziAI 打造的春节主题贪吃蛇小游戏，融合传统年俗与现代玩法。通过简单操作，玩家可以引导贪吃蛇吃豆得分，享受趣味十足的休闲时光。适合全年龄段，随时随地畅玩，感受新年氛围！">
+    <meta name="author" content="jiaoziAI">
+  <title>福蛇迎春</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="shortcut icon" href="https://jiaozi.ai/tcs/fortunesnake/assets/images/Snake.png">
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>福蛇迎春</h1>
+      <div class="score-board">
+        <span>分数: <span id="score">0</span></span>
+        <span>关卡: <span id="level">1</span></span>
+        <span>生命: <span id="lives">3</span></span>
+      </div>
+    </div>
+    
+    <div class="game-container">
+      <canvas id="game-canvas"></canvas>
+      <div class="controls">
+        <button data-direction="up">↑</button>
+        <button data-direction="left">←</button>
+        <button data-direction="right">→</button>
+        <button data-direction="down">↓</button>
+      </div>
+    </div>
+    
+    <div class="instructions">
+      <h2>游戏说明</h2>
+      <ul>
+        <li>使用手机陀螺仪或方向按钮控制蛇的移动</li>
+        <li>双击屏幕暂停/继续游戏</li>
+        <li>收集春节元素获得分数和特殊效果</li>
+        <li>完成12个生肖关卡</li>
+      </ul>
+    </div>
+  </div>
+  
+  <footer>
+    <div class="footer-content">
+      <p>© 2024 jiaozi.AI 版权所有.</p>
+    </div>
+  </footer>
+  
+  <script src="game.js"></script>
+  <script>
+    window.onload = function() {
+      initGame();
+    };
+  </script>
+
+  <script id="wxcs-script">
+  WX_Custom_Share = function(){
+    
+    var xhr = null;
+    var url = 'https://madbrief.com/wp-admin/admin-ajax.php';
+    var signature_url = window.location.href.split('#')[0];
+    var formData = {
+      action: 'wxcs_get_share_info',
+      type: 'post',
+      id: '26',
+      signature_url: signature_url
+    };
+    
+    this.init = function(){
+      if( window.XMLHttpRequest ){
+        xhr = new XMLHttpRequest();
+      }
+      else if( window.ActiveXObject ){
+        xhr = new ActiveXObject('Microsoft.XMLHTTP');
+      }
+      
+      get_share_info();
+    };
+    
+    function formatPostData( obj ){
+      
+      var arr = new Array();
+      for (var attr in obj ){
+        arr.push( encodeURIComponent( attr ) + '=' + encodeURIComponent( obj[attr] ) );
+      }
+      
+      return arr.join( '&' );
+    }
+    
+    function get_share_info(){
+      
+      if( xhr == null ) return;
+      
+      xhr.onreadystatechange = function(){
+        if( xhr.readyState == 4 && xhr.status == 200 ){
+          
+          var data = eval('(' + xhr.responseText + ')');
+          
+          if( data == null ){
+            return;
+          }
+          
+          var info = {
+            title: data.title,
+            summary: data.desc,
+            pic: data.img,
+            url: data.url
+          };
+          
+          if( formData.type == 'other' ){
+            info.title = document.title;
+            info.summary = location.href;
+            info.url = location.href;
+          }
+          
+          if( data.use_actual_url == true ){
+            info.url = location.href;
+          }
+
+          if( data.error ){
+            console.error( '自定义微信分享: ', data.error );
+          }
+          else if( data.appid ){
+            info.WXconfig = {
+              swapTitleInWX: data.swapTitleInWX,
+              appId: data.appid,
+              timestamp: data.timestamp,
+              nonceStr: data.nonceStr,
+              signature: data.signature
+            };
+          }
+          
+          setShareInfo( info );
+        }
+      };
+      
+      xhr.open( 'POST', url, true);
+      xhr.setRequestHeader( 'Content-Type', 'application/x-www-form-urlencoded' );
+      xhr.send( formatPostData( formData ) );
+    }
+  };
+  
+  new WX_Custom_Share().init();
+  </script>
+  <script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?de888494ae602a70a7157f84ec92c143";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+</body>
+</html>
